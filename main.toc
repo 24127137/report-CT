@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Problem Statement}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Project Objectives}{1}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Target Audience}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Scope of Implementation}{2}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Overview of Related Solutions/Technologies}{3}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Phân tích yêu cầu hệ thống}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Yêu cầu chức năng (Functional Requirements)}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Yêu cầu phi chức năng (Non-functional Requirements)}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Use Case Modeling}{4}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Thiết kế hệ thống}{7}{section.3}%
+\contentsline {section}{\numberline {4}Quá trình phát triển}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Phân công thành viên}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Kết quả đã đạt được}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Kế hoạch giai đoạn tiếp theo}{11}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Khó khăn và rủi ro}{11}{subsection.4.4}%

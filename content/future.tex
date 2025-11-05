@@ -1,0 +1,165 @@
+\section{Quá trình phát triển}
+
+\subsection{Phân công thành viên}
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Full name} & \textbf{Student ID} & \textbf{Role} \\
+    \hline
+    Nguyễn Thanh Trúc & 24127137 & Report, Backend, Presenter \\
+    \hline
+    Đào Minh Khoa & 24127422 & Report, System Design, Backend \\
+    \hline
+    Trần Lưu Gia Bảo & 24127018 & Frontend \\
+    \hline
+    Nguyễn Tiến Cường & 24127337 & Database, Backend \\
+    \hline
+    Nguyễn Khánh Toàn & 24127252 & UI/UX, Frontend \\
+    \hline
+    Phạm Trần Anh Quân & 24127226 & UI/UX, Frontend \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Kết quả đã đạt được}
+\begin{enumerate}[label=\textbf{\arabic*}.]
+\item \textbf{UI/UX}
+\begin{itemize}
+    \item \textbf{Thiết kế:}
+    \begin{itemize}
+        \item Ứng dụng được thiết kế với giao diện hiện đại, tối giản và trực quan trên nền tảng Figma.
+        \item Giao diện tuân theo nguyên tắc “dẫn dắt – tương tác – cá nhân hóa”, tạo cảm giác tự nhiên và mạch lạc cho người dùng.
+        \item Màu sắc nhẹ, font chữ dễ đọc, biểu tượng nhất quán và vị trí nút điều hướng cố định xuyên suốt ứng dụng.
+    \end{itemize}
+
+    \item \textbf{Trải nghiệm người dùng:}
+    \begin{itemize}
+        \item Luồng sử dụng được thiết kế nhằm đảm bảo hành trình người dùng (user journey) liền mạch, từ lúc mở app đến khi tạo hoặc tham gia nhóm du lịch.
+        \item Ứng dụng hướng đến tính cá nhân hóa, hiển thị gợi ý địa điểm và nhóm dựa theo sở thích du lịch khai báo khi đăng ký.
+        \item Tăng tính tương tác xã hội thông qua các chức năng chat nhóm, voting, và kết nối người dùng có cùng sở thích.
+    \end{itemize}
+
+    \item \textbf{Luồng giao diện người dùng (User Flow):}
+    \begin{itemize}
+        \item \textbf{Trang chào đón (Welcome Screen):} hiển thị nền hình du lịch và nút “Khám phá”. Khi nhấn vào sẽ dẫn đến trang gồm hai lựa chọn: \textit{Đăng ký} hoặc \textit{Đăng nhập}.
+        \item \textbf{Đăng nhập / Đăng ký:} 
+        \begin{itemize}
+            \item Đăng nhập thành công sẽ vào trang chủ.
+            \item Đăng ký xong sẽ qua các trang hỏi: Họ và tên, Giới tính, Sở thích du lịch, sau đó vào trang chủ.
+        \end{itemize}
+        \item \textbf{Trang chủ (Home):} hiển thị ảnh đại diện, nút cài đặt, thanh điều hướng dưới gồm: Trang chủ, Thông báo, Tin nhắn, Cá nhân.  
+        Phần trung tâm gồm thanh tìm kiếm, chọn lịch trình, và danh sách gợi ý các thành phố du lịch phù hợp với sở thích. Sau khi chọn thành phố, nhấn vô thẻ tương ứng và dẫn đến trang thành phố.
+        \item \textbf{Trang thành phố:} hiển thị tên thành phố, quốc gia, hashtag và phần mô tả ngắn. Khi chọn tiếp, dẫn đến trang địa điểm du lịch.
+        \item \textbf{Trang địa điểm:} gồm danh sách địa danh trong thành phố (ảnh, tên, độ tương thích). Người dùng “thả tim” để chọn địa điểm yêu thích. Sau đó nhấn “Tiếp tục”.
+        \item \textbf{Trang lựa chọn nhóm:} có hai tùy chọn:
+        \begin{itemize}
+            \item \textbf{Tạo nhóm:} hiện lên số thành viên, thành phố, thời gian, sở thích, lộ trình (một số thông ứng dụng đã thu nhập được sau khi người dùng chọn hoặc xác nhận trước đó). Sau khi xác nhận, hệ thống tạo nhóm và hiển thị nhóm đó trong phần tin nhắn.
+            \item \textbf{Gia nhập nhóm:} hiển thị danh sách nhóm gợi ý, gồm ảnh, tên, số thành viên và độ tương thích. Khi nhấn vào nhóm có thể xem chi tiết (Tag sở thích và lộ trình) và gửi yêu cầu tham gia.
+        \end{itemize}
+        \item \textbf{Trang tin nhắn (Chat):} gồm 2 phần:
+        \begin{itemize}
+            \item Chatbot AI trả lời cá nhân.
+            \item Chat nhóm (với voting, danh sách thành viên, quyền duyệt / xóa thành viên đối với host).
+        \end{itemize}
+        \item \textbf{Trang cài đặt (Settings):} gồm các mục:
+        \begin{itemize}
+            \item Thông tin cá nhân (hiển thị và chỉnh sửa thông tin cơ bản, sở thích du lịch, mô tả bản thân).
+            \item Ngôn ngữ (chuyển đổi giữa Tiếng Việt và English).
+            \item Thông tin (giới thiệu ứng dụng).
+            \item Đăng xuất.
+        \end{itemize}
+        \item \textbf{Trang cá nhân (Personal):} khác với “Thông tin cá nhân”, gồm hai phần:
+        \begin{itemize}
+            \item Lộ trình: liệt kê các địa điểm đã “tim”, có thể chỉnh sửa hoặc xóa.
+            \item Tình trạng: hiển thị trạng thái các đơn xin gia nhập nhóm (đang chờ, chấp nhận, từ chối).
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Nguyên tắc thiết kế UI/UX:}
+    \begin{itemize}
+        \item Tối giản – dễ nhận biết: bố cục rõ ràng, thao tác nhanh chóng.
+        \item Thống nhất – nhất quán giữa các trang.
+        \item Trực quan – dễ sử dụng, không cần hướng dẫn phức tạp.
+        \item Cá nhân hóa – hiển thị gợi ý dựa trên sở thích.
+        \item Tính xã hội – khuyến khích tương tác nhóm, kết nối người dùng.
+    \end{itemize}
+
+    \item \textbf{Tóm tắt luồng chính:}
+    \begin{itemize}
+        \item Trang chào đón → Đăng nhập/Đăng ký → Trang chủ → Chọn thành phố → Trang thành phố → Trang địa điểm → Lựa chọn nhóm → (Tạo nhóm hoặc Gia nhập nhóm) → Chat → Cài đặt/Cá nhân.
+    \end{itemize}
+\end{itemize}
+
+
+    \item \textbf{Database}
+    \begin{itemize}
+        \item \textbf{Bảng \texttt{destination}:}
+        \begin{itemize}
+            \item Đã tạo thành công \textbf{100 địa điểm} du lịch kèm description chi tiết.
+            \item \textbf{Chức năng:} AI lấy dữ liệu từ bảng \texttt{destination} để gợi ý địa điểm bằng cách dùng \texttt{description} làm dữ liệu đầu vào cho AI (Gemini) phân tích và chấm điểm mức độ phù hợp giữa sở thích của người dùng so với mô tả của từng địa điểm.
+        \end{itemize}
+
+        \item \textbf{Bảng \texttt{profiles}:}
+        \begin{itemize}
+            \item \textbf{Thiết kế:} Xây dựng thành công bảng hồ sơ người dùng gồm email, username, groupID, “Lộ trình” (itinerary), “Nhóm đang tạo” (owned-groups), “Nhóm đang tham gia” (joined-groups) và “Nhóm đang gửi request” (pending-requests). Sử dụng \texttt{email} làm định danh duy nhất để tìm kiếm người dùng và truy xuất dữ liệu.
+            \item \textbf{Bối cảnh cho AI:} Lưu trữ \texttt{interests} (sở thích) và \texttt{preferred\_city} (thành phố muốn đi) để làm đầu vào cho logic gợi ý địa điểm.
+            \item \textbf{Bảo mật:} Không lưu \texttt{password}. Bảng liên kết an toàn với Supabase Auth qua \texttt{auth\_user\_id}.  
+            Đảm bảo email của người dùng là email chính chủ bằng tính năng xác thực email của Supabase.
+            \item \textbf{Tính năng:} Tự động cập nhật bảng \texttt{profile} khi người dùng đăng ký tài khoản mới.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Frontend}
+    \begin{itemize}
+        \item \textbf{Đã hoàn thiện giao diện người dùng gồm:}
+        \begin{itemize}
+            \item Màn hình \textbf{Sign In} và \textbf{Sign Up}.
+            \item Giao diện \textbf{khảo sát sở thích người dùng}.
+            \item Trang \textbf{Homepage} hiển thị các điểm đến (thành phố du lịch).
+            \item \textbf{Khung chat} và \textbf{Chatbox} cho trao đổi trong nhóm.
+            \item Màn hình \textbf{chọn địa điểm du lịch}.
+            \item Các giao diện phụ như:
+            \begin{itemize}
+                \item \textbf{Calendar} chọn ngày khởi hành (Hình 8: Trang chọn ngày trong trang chủ).
+                \item \textbf{Giao diện tìm kiếm} để chọn các điểm đến ( Hình 21: Trang phản hồi tìm kiếm trong trang chủ).
+                \item \textbf{Giao diện mô tả cụ thể cho điểm đến} (bao gồm hình ảnh đặc trưng, mô tả). 
+                \item \textbf{Giao diện tìm kiếm địa điểm} (Hình 22: Trang tìm kiếm địa điểm du lịch).
+                \item \textbf{Giao diện tạo nhóm mới hoặc gia nhập nhóm} (Hình 7: Trang chọn tạo hoặc gia nhập nhóm).
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Backend}
+    \begin{itemize}
+        \item API cho Sign In, Sign Up.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Kế hoạch giai đoạn tiếp theo}
+\begin{center}
+    \begin{tabular}{|c|p{6cm}|p{7cm}|}
+    \hline
+        \textbf{Timeline} & \textbf{Milestone} & \textbf{Deliverables} \\
+    \hline
+        Week 5 & Backend for core feature & Các API phục vụ chức năng chính (ví dụ: API tạo, gia nhập nhóm) được hoàn thành và có tài liệu. \\
+    \hline
+        Week 6 & Front-end Integration & 5 màn hình chính đã tích hợp với Backend và hiển thị dữ liệu thật. \\
+    \hline
+        Week 7 & Unit Testing, Bug Fixing & Unit Tests vượt qua (Pass), Báo cáo POC được phê duyệt. \\
+    \hline
+        Week 8 & System Testing, Final Demo Preparation & Hệ thống ổn định, sẵn sàng cho buổi trình bày sản phẩm (Demo). \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Khó khăn và rủi ro}
+\begin{enumerate}
+    \item \textbf{Current risk}
+    \begin{itemize}
+        \item Gặp khó khăn trong việc phân chia công việc hiệu quả.
+    \end{itemize}
+    \item \textbf{Potential risk}
+    \begin{itemize}
+        \item Tham vọng dự án khá lớn, có thể không phát triển kịp một số tính năng.
+    \end{itemize}
+\end{enumerate}

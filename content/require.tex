@@ -1,0 +1,144 @@
+\section{Phân tích yêu cầu hệ thống}
+\subsection{Yêu cầu chức năng (Functional Requirements)}
+\begin{enumerate}
+    \item \textbf{User profiling}
+    \begin{center}
+        \begin{tabular}{|c|p{12cm}|}
+        \hline
+            ID & Requirement Description \\
+        \hline
+            FR-01   & The application must guide new users through an onboarding flow to select and their interests (e.g., Foodie, Hiking, History, Nightlife) to build a matching profile. \\
+        \hline
+            
+            FR-02 & Users must be able to update their current travel status, location, and travel dates within their profile. \\
+        \hline
+            FR-03 & The application must support user registration and login via email, password\\
+        \hline
+        \end{tabular}
+    \end{center}
+    
+    \item \textbf{Group Matching and Discovery}
+    \begin{center}
+        \begin{tabular}{|c|p{12cm}|}
+        \hline
+            ID & Requirement Description \\
+        \hline
+            FR-04 & The application must implement a matching algorithm to rank active groups based on shared destination, duration, travel plan, interests\\
+        \hline
+            FR-05 &
+            The application must provide a 'Discover' feed that shows currently active groups matches.\\
+        \hline
+        \end{tabular}
+
+    \end{center}
+    \item \textbf{In-App Communication and AI Integration}
+    \begin{center}
+        \begin{tabular}{|c|p{12cm}|}
+        \hline
+            ID & Requirement Description \\
+        \hline
+            FR-06 &
+            
+            The application must provide persistent 1:1 and group chat functionality for connected users.\\
+        \hline
+            FR-07 &
+            
+            The application must integrate an AI Chatbot (using OpenAI or Gemini) accessible within the chat interface to answer travel-related questions, suggest activities, and help groups make decisions.\\
+        \hline
+        \end{tabular}
+
+    \end{center}
+\end{enumerate}
+\subsection{Yêu cầu phi chức năng (Non-functional Requirements)}
+\begin{enumerate}
+    \item  \textbf{Security}
+    \begin{center}
+        \begin{tabular}{|c|p{12cm}|}
+        \hline
+            ID & Requirement Description \\
+        \hline
+            NFR-01 & Sensitive user data (e.g password) must be hashed. \\
+        \hline
+        \end{tabular}
+
+    \end{center}
+    \item \textbf{Usability and Accessibility}
+        \begin{center}
+            \begin{tabular}{|c|p{12cm}|}
+            \hline
+                ID & Requirement Description \\
+            \hline
+                NFR-02 &
+                
+                The user interface, built with Flutter, must provide a consistent experience on Android mobile devices. \\
+            \hline
+                NFR-03 &
+                
+                The application must support Vietnamese and English as the primary languages and offer easy in-app switching. \\
+            \hline
+            \end{tabular}
+        \end{center}
+        \item  \textbf{Technical stack}
+                \begin{center}
+            \begin{tabular}{|c|p{12cm}|}
+            \hline
+                ID & Requirement Description \\
+            \hline
+                NFR-04 & The API layer must be developed using Python/FastAPI with clear documentation.\\
+            \hline
+                NFR-05 & The Frontend must be developed using Flutter. \cite{FlutterLearningResources} \\
+            \hline
+            \end{tabular}
+        \end{center}
+\end{enumerate}
+
+
+\subsection{Use Case Modeling}
+
+Table \ref{tab:usecases} describes the list of main Use Cases in the \textbf{Travel Together} system, including the Use Case ID, name, description, involved actors, and the corresponding module category.  
+To ensure proper display, the table is formatted with automatic width adjustment and page breaking when it exceeds the page size.
+
+\begin{center}
+\begin{longtable}{|c|p{3cm}|p{5.5cm}|p{2cm}|p{3cm}|}
+\hline
+\textbf{Use Case ID} & \textbf{Use Case Name} & \textbf{Description} & \textbf{Actor(s)} & \textbf{Module Category} \\ \hline
+UC01 & Sign In & User logs into the app using email and password. & User & Authentication \\ \hline
+UC02 & Sign Up & User registers a new account by entering personal information. & User & Authentication \\ \hline
+UC03 & Reset Password & User requests to reset a forgotten password via email. & User, Email Service & Authentication \\ \hline
+UC04 & View Profile & User views their personal information stored in the database. & User & User Profile \\ \hline
+UC05 & Edit Profile & User edits their profile information (name, gender, interests). & User & User Profile \\ \hline
+UC06 & Change Language & User changes the app display language between English and Vietnamese. & User & Settings \\ \hline
+UC07 & Create Travel Plan & User creates a new travel plan including destination, date, and places to visit. & User & Travel Plan \\ \hline
+UC08 & Edit Travel Plan & User updates or modifies details of a saved travel plan. & User & Travel Plan \\ \hline
+UC09 & View Travel Plan & User views saved travel plans from the database. & User & Travel Plan \\ \hline
+UC10 & Group Matching & The system suggests users with similar interests and travel plans. & User, System & Group Matching \\ \hline
+UC11 & Create Group & The host user creates a travel group and defines its details. & User (Host) & Group Management \\ \hline
+UC12 & Delete Group & The host deletes an existing group and removes all members. & User (Host) & Group Management \\ \hline
+UC13 & Leave Group & A member leaves a group they are part of. & User & Group Management \\ \hline
+UC14 & Discard Member & The host removes a specific member from the group. & User (Host) & Group Management \\ \hline
+UC15 & Match Users by Interest & The system automatically matches users based on shared interests and destinations. & System, User & Group Matching \\ \hline
+UC16 & Send Join Request & User sends a request to join a travel group. & User & Group Management \\ \hline
+UC17 & Receive Group Notification & User receives notifications for join requests or group updates. & User & Notification \\ \hline
+UC18 & Accept Join Request & The host accepts a join request and adds the member to the group. & User (Host) & Group Management \\ \hline
+UC19 & Reject Join Request & The host rejects a join request. & User (Host) & Group Management \\ \hline
+UC20 & Start Voting Session & All group members vote to confirm destinations or travel plans. & User (All members) & Decision Voting \\ \hline
+UC21 & View Group Info & User views group members and the shared travel plan. & User & Group Management \\ \hline
+UC22 & AI Chatbot Suggestion & Chatbot suggests destinations and trip ideas. & User, Chatbot & Assistant \\ \hline
+\caption{List of Use Cases in the Travel Together System}
+\label{tab:usecases}
+\end{longtable}
+\end{center}
+
+
+
+% \subsection{Sơ đồ Use Case tổng quan}
+% Phần này trình bày các Use Case chính của hệ thống Travel Together thông qua sơ đồ Use Case.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{img/2.4_UseCase_Diagram.png}
+%     \caption{Sơ đồ Use Case tổng quan của hệ thống}
+%     \label{fig:usecase_diagram}
+% \end{figure}
+
+% \subsection{Đặc tả Use Case}

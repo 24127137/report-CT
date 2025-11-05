@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+
+\usepackage{hcmus-report-template}
+
+% Disable indentation on new paragraphs
+\setlength{\parindent}{0pt}
+
+% Line spacing 1.5
+\renewcommand{\baselinestretch}{1.5}
+
+% Optional: graphic path
+% \graphicspath{PATH_TO_GRAPHIC_FOLDER}
+
+% To use Times font family, uncomment this row
+ \usepackage{mathptmx}
+ \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=red,
+    urlcolor=blue
+}
+
+% To use roman section / subsection, uncomment these rows
+
+
+% Define course name, report name and report title.
+\newcommand{\coursename}{Computational Thinking}
+\newcommand{\reportname}{UNKNOWN}
+\newcommand{\reporttitle}{MIDTERM REPORT}
+
+\newcommand{\studentname}{ 
+Nguyễn Thanh Trúc (24127137) \\
+Đào Minh Khoa (24127422) \\
+Trần Lưu Gia Bảo (24127018) \\
+Nguyễn Tiến Cường (24127337) \\
+Nguyễn Khánh Toàn (24127252) \\
+Phạm Trần Anh Quân (24127226) \\
+
+}
+\newcommand{\teachername}{
+Nguyễn Tiến Huy \\ 
+Trần Hoàng Quân \\
+Lê Thanh Tùng}
+
+% Header
+\lhead{\reporttitle}
+\rhead{
+University of Science \\
+\coursename
+}
+
+% Footer
+
+% ============ DOCUMENT ============
+\begin{document}
+
+\pagenumbering{roman}
+\input{content/title.tex}
+
+\tableofcontents
+\pagebreak
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{content/abstract}
+\input{content/require}
+\input{content/design}
+\input{content/future}
+
+% References
+\input{ref/ref.tex}
+
+% Appendix
+% Add \cleardoublepage to move appendices to next page.
+\end{document}
+
+
