@@ -1,91 +1,29 @@
 \section{Introduction}
-\subsection{Problem Statement}
-This is the perfect connection solution, helping travelers find kindred spirits with the same frequency and exploration goals. Through this, it eliminates the barrier of loneliness and the issue of differing interests that hinders the arrangement of shared trips.
-\subsection{Project Objectives}
+\subsection{About recommendation system}
+What is it? \\
+A recommendation system is a subclass of information filtering systems that seek to predict the "rating"
+\subsection{Components of recommendation system}
 The following are the specific technical objectives that need to be built to address the problems of loneliness and mismatched interests in travel:
 
 \begin{enumerate}
-    \item \textbf{User Data Collection and Processing}
-    \begin{itemize}
-        \item \textbf{Develop an Interest Collection Module (\textit{Interest Collection}):}
-        \begin{itemize}
-            \item Design and deploy a mechanism to \textbf{collect} detailed \textbf{user interests and travel preferences} (e.g., travel type, budget, exploration style) and \textbf{store} them in the database.
-            \item Develop \textbf{API Endpoints} to update and retrieve user interest data.
-        \end{itemize}
-    \end{itemize}
+    \item \textbf{Candidate generation}
+Là bước đầu tiên nhằm tạo ra một tập hợp nhỏ các mục (items) có khả năng cao được người dùng quan tâm, từ hàng triệu hoặc hàng tỷ mục có sẵn.
 
-    \item \textbf{Matching and Group Management System}
-    \begin{itemize}
-        \item \textbf{Develop a Group Matching Algorithm:}
-        \begin{itemize}
-            \item Program and optimize a \textbf{matching algorithm} to automatically pair travelers based on: \textbf{shared interests, available time, and desired location}.
-            \item Ensure the algorithm returns a high \textbf{compatibility} score between suggested members.
-        \end{itemize}
-        \item \textbf{Build Group Creation and Management Functionality:}
-        \begin{itemize}
-            \item Implement functionality allowing a "\textbf{Host}" to \textbf{create a group} and set basic parameters such as group name, description, and \textbf{maximum member limit}.
-        \end{itemize}
-    \end{itemize}
+    \item \textbf{Scoring}
+Các mục ứng viên được đánh giá và chấm điểm bằng mô hình học máy để dự đoán mức độ quan tâm hoặc tương tác của người dùng đối với từng mục.
 
-    \item \textbf{Collective Decision-Making Mechanism}
-    \begin{itemize}
-        \item \textbf{Establish a Multi-Dimensional Voting System:}
-        \begin{itemize}
-            \item Develop a module allowing group members to \textbf{create, propose, and vote} on joint decisions (e.g., choosing a destination, changing the itinerary).
-            \item Program the processing logic so that \textbf{only ideas approved by all members} (or according to a consensus rule) \textbf{are applied} to the official itinerary.
-        \end{itemize}
-    \end{itemize}
+    \item \textbf{Re-ranking}
+Sắp xếp lại danh sách các mục đã được chấm điểm, áp dụng các quy tắc hoặc mục tiêu bổ sung (ví dụ: tính đa dạng, tính mới, hoặc các ràng buộc nghiệp vụ) trước khi hiển thị kết quả cuối cùng cho người dùng.
 
-    \item \textbf{Virtual Assistant and Smart Suggestions}
-    \begin{itemize}
-        \item \textbf{Integrate an AI Chatbot Assistant:}
-        \begin{itemize}
-            \item Integrate an \textbf{AI API/Module (Chatbot)} capable of \textbf{automatically generating travel itineraries} based on user or group requests.
-            \item Develop a feature so the Chatbot can \textbf{suggest destinations} and provide \textbf{quick summary information} about each mentioned location.
-        \end{itemize}
-    \end{itemize}
 \end{enumerate}
 
-\subsection{Target Audience}
-This project focuses on the following two main traveler segments:
+\subsection{Classification and Main Techniques}
+kỹ thuật phổ biến được sử dụng để xây dựng hệ thống gợi ý, đặc biệt là trong bước Tạo Ứng viên (Candidate Generation):
 \begin{enumerate}
-    \item Solo travelers seeking connection: Individuals who enjoy traveling alone but need to meet new people with similar interests and share experiences with the same frequency.
-    \item Travelers who value flexibility and exploration are people who prefer adaptability, love to explore new destinations, and want to share the experience with others.
+    \item Lọc dựa trên Nội dung (Content-based filtering): Gợi ý các mục tương tự với các mục mà người dùng đã thích trong quá khứ.
+    \item Lọc Cộng tác và Phân rã Ma trận (Collaborative Filtering and Matrix Factorization): Gợi ý các mục mà những người dùng có sở thích tương tự đã thích. Phân rã Ma trận là một kỹ thuật toán học phổ biến để thực hiện Lọc Cộng tác.
+    \item Học Sâu (Deep Learning): Sử dụng mạng nơ-ron sâu để học các biểu diễn phức tạp của người dùng và mục, từ đó cải thiện độ chính xác của gợi ý.
 \end{enumerate}
-\subsection{Scope of Implementation}
-\begin{enumerate}
-    \item \textbf{User Management}
-    \begin{itemize}
-        \item Registration/Login via email.
-        \item Personal profile configuration (basic information, travel interests).
-    \end{itemize}
-    \item \textbf{Matching and Group}
-    \begin{itemize}
-        \item Interest Collection Module
-        \item Matching Algorithm based on interests, time, and location.
-        \item Travel Group Creation and Management functionality.
-    \end{itemize}
-    \item \textbf{Group Interaction}
-    \begin{itemize}
-        \item Voting system for collective decision-making.
-        \item Messaging system among group members.
-    \end{itemize}
-\end{enumerate}
-The following parts are outside the team's scope of implementation:
-
-\subsection{Overview of Related Solutions/Technologies}
-\textbf{Analysis of similar applications} \\ \\
-\begin{tabular}{|c|c|c|c|}
-    \hline
-    System & Convenient Itinerary Planning & Large Network & Strong Community Interaction \\
-    \hline
-    Triplt & x & - & - \\
-    \hline
-    Travello & - & x & x \\
-    \hline
-    Facebook, Zalo & - & x & x \\
-    \hline
-\end{tabular}
-\\
-\textbf{Unique Selling Point (USP)}
-“Travel Together” is unique by its ability to form travel groups based on shared interests and locations, ensuring compatibility among members. By promoting well-matched group travel experiences and ensuring all members agree on choices, it helps reduce conflicts in planning and enhances companionship throughout the trip.
+\subsection{Applications}
+Ứng dụng phổ biến: Gợi ý sản phẩm trên các sàn thương mại điện tử (Amazon, Shopee), gợi ý phim/nhạc (Netflix, Spotify, YouTube), gợi ý tin tức hoặc bài viết (Google News, Facebook feed).
+\subsection{Comparison}
