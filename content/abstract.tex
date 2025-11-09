@@ -7,29 +7,76 @@ What is it? \\
 Recommendation systems address the issue of information overload. The systems personalize user experiences by suggesting items such as products, services, or content that align with individual preferences. Therefore, enhance user experiences and 
 increase engagement and satisfaction.
 Recommendation systems are divided into three types: Content-based filtering, Collaborative filtering, and Hybrid methods. Recommendation systems are now have the knowledge-based 
+\section{Traditional Recommendation System Problems}
+This section gives the definition for some common problems in traditional recommendation systems that we will discuss later, including:
+\begin{itemize}
+    \item Cold Start Problem: Difficulty in making accurate recommendations for new users or items due to lack of historical data.
+    \item Data Sparsity: The challenge of making recommendations when user-item interaction data is sparse.
+    \item Scalability: The ability to efficiently handle large-scale datasets
+\end{itemize}
 
-\section{ Analysis of Personalized Recommender Systems}
+\section{Analysis of Personalized Recommender Systems}
 
 \subsection{Collaborative Filtering (CF)}
 Driven by user profiles or historical interactions
 \subsubsection{Memory-Based CF}
-is simple and popular but
+This method get input is a matrix of user-item interactions (e.g., ratings, clicks, purchases).
+using cosine similarity or Pearson correlation to find similar users or items.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/user_item.png}
+    \caption{Memory-Based Collaborative Filtering}
+    \label{fig:memory-based-cf}
+\end{figure}
+Figure \ref{fig:memory-based-cf} illustrates the user-item interaction matrix, 
+where rows represent users and columns represent items. The values in the matrix indicate the interactions (e.g., ratings) between users and items. Memory-based collaborative filtering utilizes this matrix to find similar users or items based on their interactions.
+\\
+The method is simple and popular but
 it faces challenges such as sparsity in the
 interaction matrix and computational
 complexity in extensive user or item
 domains. \\
-Solution is to transform
-high-dimensional sparse vectors into
-low-dimensional dense ones, e.g prefs2vec by Valcarece et al. 
+A general solution to sparsity and high-dimensionality involves transforming high-dimensional sparse vectors into low-dimensional dense ones,
+ a process known as feature embedding or representation learning.
+\begin{itemize}
+    \item \textbf{User-based:} Measures similarity between the target user
+and all the other users. 
+    \item \textbf{Item-based:} Measures the similarity between the item
+that a target user is interested in and all the other items.
+\end{itemize}
+In both case, if similarity above a threshold, it then categorized as neighbor.
+The output of memory-based CF is a prediction, $\hat{r}_{u,i}$, for an unrated item $i$ by a target user $u$, 
+typically derived as a weighted average of neighbor ratings.
 \subsubsection{Model-Based CF}
-Use mathematical model to predict the user-item relationships.
-For example: Neural Network Matrix Factorization (NNMF) and Neural Collaborative Filtering (NCF) demonstrating the power of multilayer perceptrons (MLPs) for latent feature learning. 
+Uses machine learning, deep learning, or data mining algorithms to build a predictive model for recommendations.
 Able to capture complex relationships.
-\subsubsection{Context-Aware-Based CF}
+\begin{itemize}
+    \item \textbf{Clustering-Based Models:} Use unsupervised learning like K-Nearest Neighbor (KNN) or Locality-Sensitive Hashing (LSH) to group similar users or items, making the system more scalable.
+    \item \textbf{Matrix Factorization (MF)-Based Models:} Decompose the user-item utility matrix into lower-dimensional matrices representing latent factors (e.g., SVD, PMF, NMF) to uncover dependencies and user-item structures.
+    \item \textbf{Deep Learning-Based Models:} Utilize neural networks (e.g., Autoencoders, CNNs, RNNs) to learn complex patterns in user-item interactions, capturing non-linear relationships for improved recommendations.
+\end{itemize}
+\section{Deep Learning-Based Recommendation Models}
+Since learning-based models outperform neighborhood-based models, Deep Neural Networks (DNNs) have drastically increased the research on recommender systems 
+It can captures complex user-item relationships. \\
+For the input, feature vectors are created for users and items, which may include demographic information, item attributes, and historical interactions. \\
+The network outputs a prediction score or vector that represents the probability of a user interacting with or preferring an item. \\
+Deep learning-based recommendation models include:
+\begin{itemize}
+    \item \textbf{Multilayer perceptron-based recommendation:}
+    \item \textbf{Autoencoders:} Neural networks that learn efficient data representations by encoding and decoding input data. In recommender systems, they can reconstruct user-item interaction matrices to predict missing values.
+    \item \textbf{Convolutional Neural Networks (CNNs):} Primarily used for image data, CNNs can also be applied to recommender systems by extracting features from item images or user profiles to enhance recommendations.
+    \item \textbf{Recurrent Neural Networks (RNNs):} Designed for sequential data, RNNs can model user behavior over time,
+    \item \textbf{Restricted boltzmann machines-based recommendations:} RBM is a generative stochastic neural network that can learn a probability distribution over its set of inputs. In recommender systems, RBMs can model user-item interactions to predict user preferences.
+    \item \textbf{Deep reinforcement learning-based recommendations:} This approach uses reinforcement learning techniques to optimize recommendation strategies based on user feedback and interactions over time.
+    \item \textbf{Adversarial network-based recommendation:} This method employs generative adversarial networks (GANs) to improve recommendation quality by generating realistic user-item interactions and enhancing the model's ability to capture complex patterns.
+    \item \textbf{ Graph neural network-based recommender systems:} GNNs leverage graph structures to model relationships between users and items, capturing complex interactions and improving recommendation accuracy.
+\end{itemize}
+
+\section{Other Recommender Systems}
+\subsection{Explainable recommender system}
+\subsection{Context-Aware-Based CF}
 enhances recommendation quality by incorporating contextual information.
 provide more relevant and timely suggestions by using dynamic information like time, location, weather.
-\subsection{Content-Based Systems}
-Content-Based recommender systems treat recommendation as a user-specific classification problem. The system learns a classifier for a user based on the features of items they have previously rated positively. The model then uses this classifier to recommend other items with similar features.
 \subsection{Knowledge-Based Systems}
 Knowledge-Based recommender systems are uniquely suited for high-consideration, infrequent purchase domains (e.g., automobiles, real estate) where traditional methods falter.
 This category employs two main methodologies:
@@ -38,11 +85,9 @@ This category employs two main methodologies:
     This method encodes external knowledge from sources like knowledge graphs into higher-level, dense vector representations. 
     \item Path-Based RS: This method leverages connectivity patterns, known as meta-paths, within a knowledge graph. By analyzing these paths, the system can evaluate the semantic similarity between entities
 \end{itemize}
-
-\subsection{LLM-Based Systems}
-
-\subsection{Hybrid Systems}
-
+\subsection{Demographic recommender system}
+\subsection{Reciprocal recommender systems}
+\subsection{Group recommender systems}
 \section{Challenges in Recommender System Design}
 \subsection{System Robustness}
 \subsection{Scalability}
