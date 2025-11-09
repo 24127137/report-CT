@@ -1,29 +1,55 @@
+\section{Abstract}
+This article presents an overview of recommendation systems, focusing on their components, classification, main techniques, applications, and a comparison of different approaches. 
+Recommendation systems are essential tools in various domains, including e-commerce, entertainment, and social media, as they help users discover relevant content based on their preferences and behaviors.
 \section{Introduction}
 \subsection{About recommendation system}
 What is it? \\
-A recommendation system is a subclass of information filtering systems that seek to predict the "rating"
-\subsection{Components of recommendation system}
-The following are the specific technical objectives that need to be built to address the problems of loneliness and mismatched interests in travel:
+Recommendation systems address the issue of information overload. The systems personalize user experiences by suggesting items such as products, services, or content that align with individual preferences. Therefore, enhance user experiences and 
+increase engagement and satisfaction.
+Recommendation systems are divided into three types: Content-based filtering, Collaborative filtering, and Hybrid methods. Recommendation systems are now have the knowledge-based 
 
-\begin{enumerate}
-    \item \textbf{Candidate generation}
-Là bước đầu tiên nhằm tạo ra một tập hợp nhỏ các mục (items) có khả năng cao được người dùng quan tâm, từ hàng triệu hoặc hàng tỷ mục có sẵn.
+\section{ Analysis of Personalized Recommender Systems}
 
-    \item \textbf{Scoring}
-Các mục ứng viên được đánh giá và chấm điểm bằng mô hình học máy để dự đoán mức độ quan tâm hoặc tương tác của người dùng đối với từng mục.
+\subsection{Collaborative Filtering (CF)}
+Driven by user profiles or historical interactions
+\subsubsection{Memory-Based CF}
+is simple and popular but
+it faces challenges such as sparsity in the
+interaction matrix and computational
+complexity in extensive user or item
+domains. \\
+Solution is to transform
+high-dimensional sparse vectors into
+low-dimensional dense ones, e.g prefs2vec by Valcarece et al. 
+\subsubsection{Model-Based CF}
+Use mathematical model to predict the user-item relationships.
+For example: Neural Network Matrix Factorization (NNMF) and Neural Collaborative Filtering (NCF) demonstrating the power of multilayer perceptrons (MLPs) for latent feature learning. 
+Able to capture complex relationships.
+\subsubsection{Context-Aware-Based CF}
+enhances recommendation quality by incorporating contextual information.
+provide more relevant and timely suggestions by using dynamic information like time, location, weather.
+\subsection{Content-Based Systems}
+Content-Based recommender systems treat recommendation as a user-specific classification problem. The system learns a classifier for a user based on the features of items they have previously rated positively. The model then uses this classifier to recommend other items with similar features.
+\subsection{Knowledge-Based Systems}
+Knowledge-Based recommender systems are uniquely suited for high-consideration, infrequent purchase domains (e.g., automobiles, real estate) where traditional methods falter.
+This category employs two main methodologies:
+\begin{itemize}
+    \item Knowledge Graph Embedding (KGE):
+    This method encodes external knowledge from sources like knowledge graphs into higher-level, dense vector representations. 
+    \item Path-Based RS: This method leverages connectivity patterns, known as meta-paths, within a knowledge graph. By analyzing these paths, the system can evaluate the semantic similarity between entities
+\end{itemize}
 
-    \item \textbf{Re-ranking}
-Sắp xếp lại danh sách các mục đã được chấm điểm, áp dụng các quy tắc hoặc mục tiêu bổ sung (ví dụ: tính đa dạng, tính mới, hoặc các ràng buộc nghiệp vụ) trước khi hiển thị kết quả cuối cùng cho người dùng.
+\subsection{LLM-Based Systems}
 
-\end{enumerate}
+\subsection{Hybrid Systems}
 
-\subsection{Classification and Main Techniques}
-kỹ thuật phổ biến được sử dụng để xây dựng hệ thống gợi ý, đặc biệt là trong bước Tạo Ứng viên (Candidate Generation):
-\begin{enumerate}
-    \item Lọc dựa trên Nội dung (Content-based filtering): Gợi ý các mục tương tự với các mục mà người dùng đã thích trong quá khứ.
-    \item Lọc Cộng tác và Phân rã Ma trận (Collaborative Filtering and Matrix Factorization): Gợi ý các mục mà những người dùng có sở thích tương tự đã thích. Phân rã Ma trận là một kỹ thuật toán học phổ biến để thực hiện Lọc Cộng tác.
-    \item Học Sâu (Deep Learning): Sử dụng mạng nơ-ron sâu để học các biểu diễn phức tạp của người dùng và mục, từ đó cải thiện độ chính xác của gợi ý.
-\end{enumerate}
-\subsection{Applications}
-Ứng dụng phổ biến: Gợi ý sản phẩm trên các sàn thương mại điện tử (Amazon, Shopee), gợi ý phim/nhạc (Netflix, Spotify, YouTube), gợi ý tin tức hoặc bài viết (Google News, Facebook feed).
-\subsection{Comparison}
+\section{Challenges in Recommender System Design}
+\subsection{System Robustness}
+\subsection{Scalability}
+\subsection{Data Bias}
+\section{Similarity Measures}
+
+Similarity measures are fundamental to certain recommendation approaches, particularly memory-based collaborative filtering, where they are used to identify neighboring users or items. The most fundamental of these are the Pearson Correlation Coefficient and Cosine Similarity.
+Pearson Correlation Coefficient (PCC): This measures the linear correlation between the ratings of two users (u and v) on their co-rated items (Iu,v), defined as:
+Cosine Similarity (COS): This measures the cosine of the angle between two user rating vectors in the item space, defined 
+\section{Conclusion}
