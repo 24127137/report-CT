@@ -3,29 +3,12 @@ This article presents a comprehensive analysis of recommendation systems, examin
 
 \section{Introduction}
 \subsection{Fundamentals of Recommendation Systems}
-A recommendation system is an information filtering technology that predicts users' preferences and suggests relevant items from large item spaces. These systems are fundamental to modern digital services, addressing information overload by personalizing content discovery across e-commerce, entertainment, social media, and professional networks.
-
-\subsection{Core Components and Definitions}
-\cite{survey}
-\cite{Kumar2024}
-\begin{itemize}
-    \item \textbf{Users ($U$):} The set of all users in the system, where each user $u \in U$ has associated features or profile data.
-    \item \textbf{Items ($I$):} The set of recommendable items, where each item $i \in I$ has associated attributes or content features.
-    \item \textbf{Interactions ($R$):} The set of observed user-item interactions, typically represented as a sparse matrix $R \in \mathbb{R}^{|U| \times |I|}$.
-    \item \textbf{Context ($C$):} Additional information about the recommendation scenario (time, location, device, etc.).
-    \item \textbf{Recommendation Task:} Given historical interactions $R$ and optional context $C$, predict future interactions or rank items by relevance.
-\end{itemize}
-
-\subsection{Evaluation Metrics}
-Common metrics for assessing recommendation quality include:
-\begin{itemize}
-    \item \textbf{Rating Prediction:} RMSE (Root Mean Square Error), MAE (Mean Absolute Error)
-    \item \textbf{Ranking Quality:} Precision@k, Recall@k, NDCG (Normalized Discounted Cumulative Gain)
-    \item \textbf{Diversity:} Category coverage, Intra-list diversity
-    \item \textbf{Novelty:} Average popularity of recommended items
-\end{itemize}
+A recommendation system is an information filtering technology that predicts users' preferences and suggests relevant items from large item spaces. 
+These systems are fundamental to modern digital services, addressing information overload by personalizing content discovery across e-commerce, entertainment, social media, and professional networks.
 
 \section{Analysis of Personalized Recommender Systems}
+\cite{survey}
+\cite{Kumar2024}
 \subsection{Content-Based Filtering}
 This method recommends items based on a user's explicit preferences and the features/attributes of the items the user liked in the past. \\
 \textbf{Advantage:} It does not require data from other users, is not prone to data sparsity or cold-start problems, and can recommend new items not yet rated by many users.
@@ -34,7 +17,7 @@ This method recommends items based on a user's explicit preferences and the feat
 Driven by user profiles or historical interactions
 \subsubsection{Memory-Based CF}
 This method get input is a matrix of user-item interactions (e.g., ratings, clicks, purchases).
-using cosine similarity or Pearson correlation to find similar users or items.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{img/user_item.png}
@@ -43,6 +26,10 @@ using cosine similarity or Pearson correlation to find similar users or items.
 \end{figure}
 Figure \ref{fig:memory-based-cf} illustrates the user-item interaction matrix, 
 where rows represent users and columns represent items. The values in the matrix indicate the interactions (e.g., ratings) between users and items. Memory-based collaborative filtering utilizes this matrix to find similar users or items based on their interactions.
+\\
+In the memory-based approaches, the closest
+(similar) users or items are calculated by cosine similarity
+or pearson correlation coefficient. 
 \\
 This method is best for small-to-medium-sized datasets and is highly valued when explainability is necessary, as the prediction is easily traceable to the neighbors' ratings.
 
@@ -61,15 +48,21 @@ typically derived as a weighted average of neighbor ratings.
 
 \subsubsection{Model-Based CF}
 Uses machine learning, deep learning, or data mining algorithms to build a predictive model for recommendations.
-Able to capture complex relationships.
+Able to capture complex relationships because the model predicts the user’s rating for
+unrated items in the model-based collaborative filtering
+framework. 
+\\
+\textbf{Output:} Latent factor vectors for users and items. The final score is the dot product of these vectors. \\
+
+\textbf{Comparison:} MF solves the sparsity problem by inferring hidden preferences and improves scalability by reducing dimensionality. However, it often struggles to model non-linear relationships or integrate side features easily.
+
+\section{Classification of recommender systems}
 \begin{itemize}
     \item \textbf{Clustering-Based Models:} Use unsupervised learning like K-Nearest Neighbor (KNN) or Locality-Sensitive Hashing (LSH) to group similar users or items, making the system more scalable.
     \item \textbf{Matrix Factorization (MF)-Based Models:} Decompose the user-item utility matrix into lower-dimensional matrices representing latent factors (e.g., SVD, PMF, NMF) to uncover dependencies and user-item structures.
     \item \textbf{Deep Learning-Based Models:} Utilize neural networks (e.g., Autoencoders, CNNs, RNNs) to learn complex patterns in user-item interactions, capturing non-linear relationships for improved recommendations.
 \end{itemize}
-Output: Latent factor vectors for users and items. The final score is the dot product of these vectors.
 
-Comparison: MF solves the sparsity problem by inferring hidden preferences and improves scalability by reducing dimensionality. However, it often struggles to model non-linear relationships or integrate side features easily.
 \section{Deep Learning-Based Recommendation Models}
 Deep Neural Networks (DNNs) have revolutionized recommendation systems by enabling the modeling of complex, non-linear user-item relationships. These models excel at:
 \begin{itemize}
@@ -128,7 +121,7 @@ Graph Neural Networks & Graph structure processing & User-item relationship grap
 
 
 
-\section{Specialized Recommendation Approaches}
+\section{Other Recommendation Approaches}
 
 \subsection{Explainable Recommender Systems (XRS)}
 XRS focus on providing transparency and justification for recommendations, enabling users to understand why items are recommended. 
@@ -182,7 +175,7 @@ Particularly effective for high-consideration, infrequent purchases where histor
         \item Challenges: Fairness, satisfaction distribution
     \end{itemize}
 \end{itemize}
-\section{Challenges and Future Directions}
+\section{Challenges}
 
 \subsection{Traditional Challenges}
 \begin{itemize}
@@ -208,7 +201,7 @@ Particularly effective for high-consideration, infrequent purchases where histor
     \end{itemize}
 \end{itemize}
 
-\subsection{Contemporary Challenges}
+\subsection{Current Challenges}
 \begin{itemize}
     \item \textbf{System Security:}
     \begin{itemize}
@@ -236,7 +229,7 @@ Particularly effective for high-consideration, infrequent purchases where histor
 \end{itemize}
 
 
-\section{Similarity Measures}
+\section{Similarity Measures in memory-based CF recommendation systems}
 
 Similarity measures are fundamental to certain recommendation approaches, particularly memory-based collaborative filtering, where they are used to identify neighboring users or items. The most fundamental of these are the Pearson Correlation Coefficient and Cosine Similarity.
 Pearson Correlation Coefficient (PCC): This measures the linear correlation between the ratings of two users (u and v) on their co-rated items (Iu,v), defined as:
