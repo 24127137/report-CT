@@ -1,21 +1,32 @@
 \section{Abstract}
-This article presents an overview of recommendation systems, focusing on their components, classification, main techniques, applications, and a comparison of different approaches. 
-Recommendation systems are essential tools in various domains, including e-commerce, entertainment, and social media, as they help users discover relevant content based on their preferences and behaviors.
+This article presents a comprehensive analysis of recommendation systems, examining their fundamental components, algorithmic approaches, and practical applications. We provide detailed comparisons of different techniques, focusing on their mathematical foundations, input-output characteristics, and real-world performance. The analysis covers traditional approaches, modern deep learning methods, and emerging hybrid systems, offering insights into their strengths, limitations, and suitable application domains.
+
 \section{Introduction}
-\subsection{About recommendation system}
-What is it? \\
-Recommendation systems address the issue of information overload. The systems personalize user experiences by suggesting items such as products, services, or content that align with individual preferences. Therefore, enhance user experiences and 
-increase engagement and satisfaction.
-Recommendation systems are divided into three types: Content-based filtering, Collaborative filtering, and Hybrid methods. Recommendation systems are now have the knowledge-based 
-\section{Traditional Recommendation System Problems}
-This section gives the definition for some common problems in traditional recommendation systems that we will discuss later, including:
+\subsection{Fundamentals of Recommendation Systems}
+A recommendation system is an information filtering technology that predicts users' preferences and suggests relevant items from large item spaces. These systems are fundamental to modern digital services, addressing information overload by personalizing content discovery across e-commerce, entertainment, social media, and professional networks.
+
+\subsection{Core Components and Definitions}
 \begin{itemize}
-    \item Cold Start Problem: Difficulty in making accurate recommendations for new users or items due to lack of historical data.
-    \item Data Sparsity: The challenge of making recommendations when user-item interaction data is sparse.
-    \item Scalability: The ability to efficiently handle large-scale datasets
+    \item \textbf{Users ($U$):} The set of all users in the system, where each user $u \in U$ has associated features or profile data.
+    \item \textbf{Items ($I$):} The set of recommendable items, where each item $i \in I$ has associated attributes or content features.
+    \item \textbf{Interactions ($R$):} The set of observed user-item interactions, typically represented as a sparse matrix $R \in \mathbb{R}^{|U| \times |I|}$.
+    \item \textbf{Context ($C$):} Additional information about the recommendation scenario (time, location, device, etc.).
+    \item \textbf{Recommendation Task:} Given historical interactions $R$ and optional context $C$, predict future interactions or rank items by relevance.
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+Common metrics for assessing recommendation quality include:
+\begin{itemize}
+    \item \textbf{Rating Prediction:} RMSE (Root Mean Square Error), MAE (Mean Absolute Error)
+    \item \textbf{Ranking Quality:} Precision@k, Recall@k, NDCG (Normalized Discounted Cumulative Gain)
+    \item \textbf{Diversity:} Category coverage, Intra-list diversity
+    \item \textbf{Novelty:} Average popularity of recommended items
 \end{itemize}
 
 \section{Analysis of Personalized Recommender Systems}
+\subsection{Content-Based Filtering}
+This method recommends items based on a user's explicit preferences and the features/attributes of the items the user liked in the past. \\
+\textbf{Advantage:} It does not require data from other users, is not prone to data sparsity or cold-start problems, and can recommend new items not yet rated by many users.
 
 \subsection{Collaborative Filtering (CF)}
 Driven by user profiles or historical interactions
@@ -31,11 +42,9 @@ using cosine similarity or Pearson correlation to find similar users or items.
 Figure \ref{fig:memory-based-cf} illustrates the user-item interaction matrix, 
 where rows represent users and columns represent items. The values in the matrix indicate the interactions (e.g., ratings) between users and items. Memory-based collaborative filtering utilizes this matrix to find similar users or items based on their interactions.
 \\
-The method is simple and popular but
-it faces challenges such as sparsity in the
-interaction matrix and computational
-complexity in extensive user or item
-domains. \\
+This method is best for small-to-medium-sized datasets and is highly valued when explainability is necessary, as the prediction is easily traceable to the neighbors' ratings.
+
+Drawback: Explicitly contrast the complexity: The computational cost is $O(M^2)$ for User-Based or $O(N^2)$ for Item-Based in the worst case (M users, N items), making it unscalable for massive, real-time catalogs. \\
 A general solution to sparsity and high-dimensionality involves transforming high-dimensional sparse vectors into low-dimensional dense ones,
  a process known as feature embedding or representation learning.
 \begin{itemize}
@@ -47,6 +56,7 @@ that a target user is interested in and all the other items.
 In both case, if similarity above a threshold, it then categorized as neighbor.
 The output of memory-based CF is a prediction, $\hat{r}_{u,i}$, for an unrated item $i$ by a target user $u$, 
 typically derived as a weighted average of neighbor ratings.
+
 \subsubsection{Model-Based CF}
 Uses machine learning, deep learning, or data mining algorithms to build a predictive model for recommendations.
 Able to capture complex relationships.
@@ -55,46 +65,192 @@ Able to capture complex relationships.
     \item \textbf{Matrix Factorization (MF)-Based Models:} Decompose the user-item utility matrix into lower-dimensional matrices representing latent factors (e.g., SVD, PMF, NMF) to uncover dependencies and user-item structures.
     \item \textbf{Deep Learning-Based Models:} Utilize neural networks (e.g., Autoencoders, CNNs, RNNs) to learn complex patterns in user-item interactions, capturing non-linear relationships for improved recommendations.
 \end{itemize}
+Output: Latent factor vectors for users and items. The final score is the dot product of these vectors.
+
+Comparison: MF solves the sparsity problem by inferring hidden preferences and improves scalability by reducing dimensionality. However, it often struggles to model non-linear relationships or integrate side features easily.
 \section{Deep Learning-Based Recommendation Models}
-Since learning-based models outperform neighborhood-based models, Deep Neural Networks (DNNs) have drastically increased the research on recommender systems 
-It can captures complex user-item relationships. \\
-For the input, feature vectors are created for users and items, which may include demographic information, item attributes, and historical interactions. \\
-The network outputs a prediction score or vector that represents the probability of a user interacting with or preferring an item. \\
-Deep learning-based recommendation models include:
+Deep Neural Networks (DNNs) have revolutionized recommendation systems by enabling the modeling of complex, non-linear user-item relationships. These models excel at:
 \begin{itemize}
-    \item \textbf{Multilayer perceptron-based recommendation:}
-    \item \textbf{Autoencoders:} Neural networks that learn efficient data representations by encoding and decoding input data. In recommender systems, they can reconstruct user-item interaction matrices to predict missing values.
-    \item \textbf{Convolutional Neural Networks (CNNs):} Primarily used for image data, CNNs can also be applied to recommender systems by extracting features from item images or user profiles to enhance recommendations.
-    \item \textbf{Recurrent Neural Networks (RNNs):} Designed for sequential data, RNNs can model user behavior over time,
-    \item \textbf{Restricted boltzmann machines-based recommendations:} RBM is a generative stochastic neural network that can learn a probability distribution over its set of inputs. In recommender systems, RBMs can model user-item interactions to predict user preferences.
-    \item \textbf{Deep reinforcement learning-based recommendations:} This approach uses reinforcement learning techniques to optimize recommendation strategies based on user feedback and interactions over time.
-    \item \textbf{Adversarial network-based recommendation:} This method employs generative adversarial networks (GANs) to improve recommendation quality by generating realistic user-item interactions and enhancing the model's ability to capture complex patterns.
-    \item \textbf{ Graph neural network-based recommender systems:} GNNs leverage graph structures to model relationships between users and items, capturing complex interactions and improving recommendation accuracy.
+    \item \textbf{Feature Learning:} Automatic extraction of high-level features from raw inputs
+    \item \textbf{Multimodal Fusion:} Integration of heterogeneous data sources (text, images, user behavior)
+    \item \textbf{Sequential Patterns:} Capturing temporal dynamics and evolution of user preferences
+    \item \textbf{Cross-Domain Transfer:} Leveraging knowledge from related domains
 \end{itemize}
 
-\section{Other Recommender Systems}
-\subsection{Explainable recommender system}
-\subsection{Context-Aware-Based CF}
-enhances recommendation quality by incorporating contextual information.
-provide more relevant and timely suggestions by using dynamic information like time, location, weather.
-\subsection{Knowledge-Based Systems}
-Knowledge-Based recommender systems are uniquely suited for high-consideration, infrequent purchase domains (e.g., automobiles, real estate) where traditional methods falter.
-This category employs two main methodologies:
+\subsection{Input Types and Preprocessing}
+Deep learning models typically accept:
 \begin{itemize}
-    \item Knowledge Graph Embedding (KGE):
-    This method encodes external knowledge from sources like knowledge graphs into higher-level, dense vector representations. 
-    \item Path-Based RS: This method leverages connectivity patterns, known as meta-paths, within a knowledge graph. By analyzing these paths, the system can evaluate the semantic similarity between entities
+    \item \textbf{Dense Features:} Normalized continuous variables (age, price)
+    \item \textbf{Sparse Features:} One-hot or multi-hot encoded categorical variables
+    \item \textbf{Sequential Data:} Session logs, interaction histories
+    \item \textbf{Unstructured Data:} Text descriptions, images, audio
 \end{itemize}
-\subsection{Demographic recommender system}
-\subsection{Reciprocal recommender systems}
-\subsection{Group recommender systems}
-\section{Challenges in Recommender System Design}
-\subsection{System Robustness}
-\subsection{Scalability}
-\subsection{Data Bias}
+
+\subsection{Output Formats}
+Models produce various outputs depending on the task:
+\begin{itemize}
+    \item \textbf{Rating Prediction:} Scalar values indicating predicted user preference
+    \item \textbf{Click-Through Rate (CTR):} Probability of user interaction
+    \item \textbf{Ranking Scores:} Used for ordering candidate items
+    \item \textbf{Embeddings:} Dense vector representations for retrieval
+\end{itemize}
+
+Deep learning-based recommendation models include:
+\begin{table*}
+\begin{center}
+\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Model} & \textbf{Core mechanism} & \textbf{Input} & \textbf{Drawback} \\
+\hline
+Multilayer perceptron-based recommendation & Feed-forward neural networks with multiple hidden layers & User and item features, interaction data & High computational cost, requires large training data \\
+\hline
+Autoencoders & Encoding and decoding input data to learn efficient representations & User-item interaction matrices & Information loss during compression, sensitive to noise \\
+\hline
+Convolutional Neural Networks (CNNs) & Feature extraction through convolution operations & Image data, user profiles & Limited to structured data, computationally intensive \\
+\hline
+Recurrent Neural Networks (RNNs) & Sequential data processing with memory cells & Temporal user behavior data & Gradient vanishing/exploding, slow training \\
+\hline
+Restricted Boltzmann Machines & Probability distribution learning over inputs & User-item interaction patterns & Complex training process, difficult to tune \\
+\hline
+Deep Reinforcement Learning & Optimization based on user feedback & User interactions and feedback over time & Delayed rewards, exploration vs exploitation trade-off \\
+\hline
+Adversarial Networks & Generative modeling with competing networks & User-item interactions & Training instability, mode collapse risk \\
+\hline
+Graph Neural Networks & Graph structure processing & User-item relationship graphs & Scalability issues with large graphs, computational complexity \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Deep Learning-Based Recommendation Models}
+\label{table:deep-learning-recommendation-models}
+\end{table*}
+
+
+
+\section{Specialized Recommendation Approaches}
+
+\subsection{Explainable Recommender Systems (XRS)}
+XRS focus on providing transparency and justification for recommendations, enabling users to understand why items are recommended. 
+\begin{itemize}
+    \item \textbf{Input:} User-item interactions plus auxiliary information for generating explanations
+    \item \textbf{Output:} Recommendations with natural language or structured explanations
+    \item \textbf{Best suited for:} High-stakes decisions, regulated industries, trust-sensitive domains
+    \item \textbf{Trade-off:} Some predictive accuracy is typically sacrificed for interpretability
+\end{itemize}
+
+\subsection{Context-Aware Recommender Systems}
+These systems incorporate dynamic contextual signals to improve recommendation relevance.
+\begin{itemize}
+    \item \textbf{Input:} Traditional user-item data plus contextual features (time, location, weather, device)
+    \item \textbf{Output:} Context-specific recommendations or rankings
+    \item \textbf{Best suited for:} Point-of-Interest (POI), mobile apps, real-time recommendations
+    \item \textbf{Advantage:} Significantly improved relevance compared to static approaches
+\end{itemize}
+
+\subsection{Knowledge-Based Systems}
+Particularly effective for high-consideration, infrequent purchases where historical data is sparse.
+\begin{itemize}
+    \item \textbf{Main approaches:}
+    \begin{itemize}
+        \item \textbf{Knowledge Graph Embedding (KGE):} Encodes domain knowledge into dense vector representations
+        \item \textbf{Path-Based:} Uses meta-paths in knowledge graphs for semantic similarity
+    \end{itemize}
+    \item \textbf{Best suited for:} Complex products (cars, real estate), professional services
+    \item \textbf{Advantage:} Can handle cold-start cases effectively using domain knowledge
+\end{itemize}
+
+\subsection{Specialized Domain Recommenders}
+\begin{itemize}
+    \item \textbf{Demographic RS:}
+    \begin{itemize}
+        \item Uses population segment data for quick but generic recommendations
+        \item Effective for cold-start but less personalized
+    \end{itemize}
+    
+    \item \textbf{Reciprocal RS:}
+    \begin{itemize}
+        \item For two-sided matching (dating, job matching)
+        \item Requires mutual satisfaction of both parties
+        \item Complex optimization to balance competing preferences
+    \end{itemize}
+    
+    \item \textbf{Group RS:}
+    \begin{itemize}
+        \item For shared experiences (travel planning, movie watching)
+        \item Uses preference aggregation strategies
+        \item Challenges: Fairness, satisfaction distribution
+    \end{itemize}
+\end{itemize}
+\section{Challenges and Future Directions}
+
+\subsection{Traditional Challenges}
+\begin{itemize}
+    \item \textbf{Cold Start:}
+    \begin{itemize}
+        \item Problem: No historical data for new users/items
+        \item Solutions: Hybrid approaches, content-based features, quick surveys
+        \item Impact: Most severe in CF systems
+    \end{itemize}
+    
+    \item \textbf{Data Sparsity:}
+    \begin{itemize}
+        \item Problem: Very few interactions per user/item
+        \item Solutions: Matrix factorization, transfer learning
+        \item Impact: Affects recommendation quality and coverage
+    \end{itemize}
+    
+    \item \textbf{Scalability:}
+    \begin{itemize}
+        \item Problem: Large-scale real-time recommendations
+        \item Solutions: Two-stage (retrieval + ranking), ANN search
+        \item Impact: Trade-off between accuracy and latency
+    \end{itemize}
+\end{itemize}
+
+\subsection{Contemporary Challenges}
+\begin{itemize}
+    \item \textbf{System Security:}
+    \begin{itemize}
+        \item Shilling attacks: Fake profiles/ratings
+        \item Profile injection attacks
+        \item Adversarial perturbations
+        \item Solutions: Robust optimization, anomaly detection
+    \end{itemize}
+    
+    \item \textbf{Fairness and Bias:}
+    \begin{itemize}
+        \item Population bias in training data
+        \item Filter bubbles and echo chambers
+        \item Long-tail item exposure
+        \item Solutions: Diversity metrics, fairness constraints
+    \end{itemize}
+    
+    \item \textbf{Privacy and Trust:}
+    \begin{itemize}
+        \item Data minimization requirements
+        \item Federated learning approaches
+        \item Explainable recommendations
+        \item Solutions: Privacy-preserving ML, local differential privacy
+    \end{itemize}
+\end{itemize}
+
+
 \section{Similarity Measures}
 
 Similarity measures are fundamental to certain recommendation approaches, particularly memory-based collaborative filtering, where they are used to identify neighboring users or items. The most fundamental of these are the Pearson Correlation Coefficient and Cosine Similarity.
 Pearson Correlation Coefficient (PCC): This measures the linear correlation between the ratings of two users (u and v) on their co-rated items (Iu,v), defined as:
+$$\text{PCC}(u, v) = \frac{\sum_{i \in I_{u,v}} (r_{u,i} - \bar{r}_u) (r_{v,i} - \bar{r}_v)}{\sqrt{\sum_{i \in I_{u,v}} (r_{u,i} - \bar{r}_u)^2} \sqrt{\sum_{i \in I_{u,v}} (r_{v,i} - \bar{r}_v)^2}}$$
+
 Cosine Similarity (COS): This measures the cosine of the angle between two user rating vectors in the item space, defined 
+$$\text{cos}(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{\sum_{i=1}^{n} u_i v_i}{\sqrt{\sum_{i=1}^{n} u_i^2} \sqrt{\sum_{i=1}^{n} v_i^2}}$$
+
 \section{Conclusion}
+This comprehensive analysis of recommendation systems has examined the theoretical foundations, practical implementations, and emerging trends in the field. We have:
+\begin{itemize}
+    \item Detailed the mathematical frameworks and algorithms underlying different recommendation approaches
+    \item Analyzed the specific inputs, outputs, and data requirements for each model family
+    \item Compared the strengths and limitations of various techniques across different application domains
+    \item Identified key challenges and promising future research directions
+\end{itemize}
+
+The field continues to evolve, with deep learning and knowledge-based approaches offering new capabilities while raising important questions about scalability, privacy, and fairness. Success in modern recommendation systems requires carefully balancing these competing concerns while selecting appropriate techniques for specific application requirements.
+
