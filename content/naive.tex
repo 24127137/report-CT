@@ -1,0 +1,167 @@
+\section{Naive Bayes}
+\subsection{Definition}
+Naive Bayes is a straightforward yet effective Machine Learning algorithm used for classification tasks.
+It's built upon Bayes' Theorem, a fundamental concept in probability. \\
+The algorithm is called "naive" because it makes a key assumption: it believes that all data features are independent of each other, given the class of the item. While this assumption is rarely perfectly true in real-world scenarios (especially with images), 
+Naive Bayes often performs surprisingly well, particularly in tasks like text classification.\cite{naive}
+\subsection{Working Principle}
+\subsubsection{Classification Process}
+Unlike KNN, which measures distances, Naive Bayes works by calculating probabilities. \\
+\textbf{Step 1: Probability Calculation (Training Phase)} \\
+The model "learns" from the training data by computing two main types of probabilities:
+\begin{itemize}
+    \item Prior Probability: This is the probability of each class appearing in the dataset. 
+    For example, P(T-shirt/top) is the proportion of T-shirt/top images among all 60,000 training images.
+    \item Conditional Probability: This is the probability of a specific feature (like a pixel's brightness) occurring,
+    given that we already know the item's class. 
+    For example, $P(Pixel_{100}= Bright | T-shirt/top)$ tells us how likely a specific pixel at position 100 is to be bright if the image is indeed a T-shirt/top.
+\end{itemize}
+\textbf{Step 2: Posterior Probability Calculation (Prediction Phase) } \\
+When a new data point (a new image) arrives, the model uses Bayes' Theorem to calculate the probability that it 
+belongs to each possible class: 
+$$P(Class A | New Image) \alpha P(New Image | Class A) \times P(Class A)$$
+This means the probability that the new image is of Class A is proportional to 
+the probabilities of seeing that image given Class A, multiplied by the prior probability of Class A.\\
+The "naive" assumption simplifies $P(New Image | Class A)$ into a product of individual pixel probabilities: 
+$$P(Pixel_1 | Class A) \times P(Pixel_2 | Class A) \times ...$$
+This means it treats each pixel as independent, ignoring how they might relate to each other to form shapes.
+
+\textbf{Step 3: Decision (Classification)} \\
+ The class with the highest posterior probability is then assigned to the new data point.
+\subsubsection{Illustrative Example}
+Imagine we are building a spam email classifier using Naive Bayes.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/naive_illu.png}
+    \label{fig:naive_example}
+    \caption{Naive Bayes Classification Example}
+\end{figure}
+\begin{itemize}
+    \item Features: Words found in an email (e.g., "sale", "report", "hello").
+    \item Classes: "Spam" or "Not Spam".
+\end{itemize}
+
+\textbf{Problem:} \\
+A new email arrives with the subject: "Hello, don't miss this SALE!" \\
+\textbf{Naive Bayes Classification Steps:}
+
+
+\begin{enumerate}
+    \item Learning from Data (Training): The model first analyzes a large set of known "Spam" and "Not Spam" emails. It counts how often each word appears in each category. From this, it learns:
+    \begin{itemize}
+        \item The overall likelihood of an email being Spam vs. Not Spam (P(Spam) or P(Not Spam)).
+        \item The likelihood of a specific word appearing given that the email is Spam or Not Spam (P("word" | Spam) or P("word" | Not Spam)). For example, P("sale" | Spam) would likely be high.
+    \end{itemize}
+    \item Predicting a New Email: For the new email "Hello, don't miss this SALE!":
+    \begin{itemize}
+        \item The model calculates P(Spam | "Hello", "sale") and P(Not Spam | "Hello", "sale").
+        \item Crucially, due to the "naive" assumption, it simplifies these calculations. For instance: 
+        $P(Spam | email) \alpha P("Hello" | Spam) * P("sale" | Spam) * P(Spam)$
+        \item It does the same for "Not Spam".
+    \end{itemize}
+    \item Decision: It compares these two calculated probabilities.
+\end{enumerate}
+\textbf{Conclusion:}
+    \begin{itemize}
+        \item If P(Spam | email) is greater than P(Not Spam | email), the email is predicted as "Spam".
+        \item Otherwise, it's classified as "Not Spam".
+    \end{itemize}
+This process allows Naive Bayes to classify new emails based on the statistical likelihood of its words belonging to either category.
+
+\subsubsection{Factors Affecting Performance}
+	extbf{Independence assumption:}
+The central assumption behind Naive Bayes is conditional independence of features given the class. This is the single most important factor affecting performance. When features are highly correlated (for example, adjacent pixels in an image that jointly form shapes), the independence assumption is violated and Naive Bayes' predictive accuracy degrades. In domains where features interact in complex ways, the model cannot capture those dependencies.
+
+	extbf{Types of Naive Bayes:}
+Different Naive Bayes variants are tailored to different data types. Choosing the correct variant is crucial:
+\begin{itemize}
+    \item \textbf{GaussianNB:} Assumes continuous features follow a Gaussian distribution (suitable for real-valued inputs).
+    \item \textbf{MultinomialNB:} Designed for count data (e.g., word counts in text); models the distribution of term frequencies.
+    \item \textbf{BernoulliNB:} Appropriate for binary/boolean features (presence/absence of a token or attribute).
+\end{itemize}
+
+	extbf{Data preprocessing:}
+Because Naive Bayes relies on feature-wise probability estimates and independence, careful preprocessing can improve performance:
+\begin{itemize}
+    \item \emph{Scaling/Normalization:} For GaussianNB, standardizing features (zero mean, unit variance) can make the Gaussian assumption more plausible.
+    \item \emph{Dimensionality reduction (PCA):} Principal Component Analysis can create new orthogonal features (principal components) that are less correlated, which better satisfies the independence assumption and often improves accuracy on image or dense numerical data.
+    \item \emph{Feature selection / engineering:} Remove noisy or redundant features, and create informative aggregated features (e.g., counts, ratios) where appropriate.
+\end{itemize}
+
+\subsubsection{Parameter Optimization}
+To find the best-performing Naive Bayes configuration:
+\begin{enumerate}
+    \item Experiment with preprocessing: apply StandardScaler (for GaussianNB) and/or PCA to reduce dimensions and decorrelate features.
+    \item Vary PCA \texttt{n\_components} to control how many principal components to retain; evaluate downstream accuracy.
+    \item For \texttt{GaussianNB}, tune \texttt{var\_smoothing} (a small constant added to variances) to prevent zero-variance issues.
+    \item Use cross-validation with GridSearchCV (or RandomizedSearchCV) to search combinations of preprocessing steps and model hyperparameters and select the configuration with the best validation performance.
+\end{enumerate}
+
+\subsubsection{Data Characteristics}
+Naive Bayes generally performs well when:
+\begin{itemize}
+    \item Features are approximately independent given the class.
+    \item The dataset has high dimensionality (e.g., text data with many word features), where simple probabilistic assumptions can be effective.
+    \item The training set is reasonably large so that reliable per-feature probability estimates can be obtained.
+\end{itemize}
+
+It performs poorly when features exhibit complex, interdependent relationships (e.g., pixels forming intricate visual patterns), in which case discriminative or deep models (SVMs, CNNs) that model feature interactions tend to outperform Naive Bayes.
+
+\subsection{Performance Result}
+\subsubsection{Visualization}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/naive_result.png}
+    \label{fig:naive_performance}
+    \caption{Naive Performance by: Overall Metrics, Per-Class Performance, Confusion Matrix, and Accuracy by Class.}
+\end{figure}
+ 
+\subsubsection{Observations}
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Overall Performance}
+    The model achieved moderate performance on the test dataset. The macro-averaged metrics (calculated across all classes) are as follows: \\
+    Accuracy: 69.6\% \\
+    Precision: 69.7\% \\
+    Recall: 69.6\% \\
+    F1-Score: 68.6\% \\
+    These key metrics are visually summarized in the "Overall Performance Metrics" chart (top-left panel of the dashboard).
+
+    \item \textbf{Detailed Analysis Through Visualizations}
+    	extbf{Accuracy by Class:} The horizontal bar chart titled "Accuracy by Class" reveals significant variation in performance across categories:
+    \begin{itemize}
+        \item \emph{High-performing classes:}
+        \begin{itemize}
+            \item Trouser: 91.8\%
+            \item Dress: 89.5\%
+            \item Sneaker: 89.0\%
+        \end{itemize}
+        These items tend to have distinctive shapes and fewer visual overlaps with other categories, making them easier for the model to classify.
+
+        \item \emph{Lowest-performing class:}
+        \begin{itemize}
+            \item Shirt: 15.4\%, which is notably the lowest accuracy among all classes.
+        \end{itemize}
+    \end{itemize}
+
+    	extbf{Confusion Matrix Insights:} The confusion matrix provides a crucial explanation for the poor performance of the "Shirt" class:
+    \begin{itemize}
+        \item Out of 1,000 actual "Shirt" images in the test set, the model correctly predicted 383 of them (diagonal count for Shirt). The overall Recall for Shirt (15.4\%) indicates a low true-positive rate relative to all Shirt instances.
+        \item The model frequently misclassifies "Shirt" into other upper-body apparel categories:
+        \begin{itemize}
+            \item Misclassified as T-shirt/top: 160 times
+            \item Misclassified as Pullover: 95 times
+            \item Misclassified as Coat: 135 times
+        \end{itemize}
+        This highlights that the Naive Bayes model, even when combined with PCA, struggles to distinguish subtle features (like collars or buttons) that differentiate various types of shirts and coats.
+    \end{itemize}
+
+    	extbf{Per-Class Performance Metrics:} The "Per-Class Performance" bar chart further confirms these observations:
+    The "Shirt" class exhibits extremely low Recall (represented by the pink bar, \#ec4899) and F1-Score (green bar, \#10b981), indicating very poor classification performance compared to other classes.
+\end{enumerate}
+
+\subsubsection{Conclusion}
+The Naive Bayes model, even after extensive optimization using PCA for dimensionality reduction and GridSearchCV for hyperparameter tuning, achieved an overall accuracy of 69.6% on the Fashion MNIST dataset.
+\\
+The model demonstrates strong performance for categories with distinct geometric shapes, such as trousers and shoes.
+\\
+However, it significantly struggles with categories that share overlapping visual characteristics—most notably the "Shirt" class. "Shirt" is frequently confused with other upper-body garments like "T-shirt/top", "pullover", and "coat". This outcome underscores the fundamental limitation of the "naive" assumption: it is inherently ill-suited for understanding the complex spatial relationships of pixels within image data.

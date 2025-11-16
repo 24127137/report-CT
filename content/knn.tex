@@ -1,0 +1,147 @@
+\section{K-Nearest Neighbors (KNN)}
+\subsection{Definition}
+K-Nearest Neighbors (KNN) is a simple, intuitive, yet powerful Machine Learning algorithm used for classification
+ problems. It is considered one of the most understandable algorithms in Machine Learning and is especially suitable for beginners.
+\cite{knn}\\
+The algorithm is based on the assumption that similar data points are close to each other, while different data 
+points are farther apart in the feature space.
+\subsection{Working Principle}
+\subsubsection{Classification Process}
+KNN classifies a new data point using the following steps: \\
+\textbf{Step 1: Distance Calculation} \\
+Compute the distance from the new data point to all labeled data points in the training set. 
+Common distance types include:
+\begin{itemize}
+    \item Euclidean Distance: Straight-line distance in space.
+    \item Manhattan Distance: Distance along perpendicular grid-like paths.
+    \item Cosine Distance: Often used for text or similarity-based problems.
+\end{itemize}
+
+\textbf{Step 2: Determine K Nearest Neighbors} \\
+Select K labeled data points having the shortest distances to the target point. \\
+Typical K values: 1, 3, 5, 7,etc.
+\textbf{Step 3: Majority Voting} \\
+Count how many of the K neighbors belong to each class.\\
+The class that appears the most is assigned to the new data point.
+\subsubsection{Illustrative Example}
+Imagine a 2D chart plotting known fruits using:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/knn_ex.png}
+    \label{fig:knn_example}
+    \caption{KNN Classification Example}
+\end{figure}
+\begin{itemize}
+    \item X-axis: Sourness (higher $\to$ more sour)
+    \item Y-axis: Crispness (higher $\to$ crispier)
+\end{itemize}
+
+After plotting the known fruits:
+\begin{itemize}
+    \item Apples (red dots): High crispness, low sourness
+    \item Lemons (yellow squares): Low crispness, high sourness
+    \item Dragon fruit (purple triangles): Low crispness, low sourness
+\end{itemize}
+
+\textbf{Problem:} \\
+We have an Unknown Fruit (?), located around the center (medium sourness, medium crispness).\\
+\textbf{KNN Classification Steps:}
+\begin{itemize}
+    \item Choose K = 5
+    \item Find the 5 nearest neighbors
+    \item Suppose the neighbors include:
+    \begin{itemize}
+        \item 3 Apples
+        \item 1 Lemon
+        \item 1 Dragon fruit
+    \end{itemize}
+\end{itemize}
+\textbf{Conclusion:} \\
+ The unknown fruit is predicted to be an Apple because the majority of its neighbors belong to the Apple class.
+
+\subsubsection{Factors Affecting Performance} 
+\textbf{Selection of K:}
+\begin{itemize}
+    \item K too small $\to$ Overfitting
+    \item K too large $\to$ Important local patterns may be lost
+\end{itemize}
+\textbf{Selection of distance type:}
+\begin{itemize}
+    \item Must match the nature of the dataset
+    \item Requires experimentation to find the best fit
+\end{itemize}
+
+\subsubsection{Parameter Optimization}
+To find the best K and distance metric:
+\begin{enumerate}
+    \item Split data into training and test sets
+    \item Try different distance types
+    \item Try different values of K
+    \item Measure accuracy
+    \item Choose the highest-performing combination
+\end{enumerate}
+
+\subsubsection{Data Characteristics}
+KNN works best when:
+\begin{itemize}
+    \item Data is clearly separable by distance
+    \item Each class forms compact clusters
+    \item Variance within classes is low
+\end{itemize}
+When data becomes more dispersed or overlapping, performance decreases.
+
+\subsection{Performance Result}
+\subsubsection{Visualization}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/KNN_over.png}
+    \label{fig:knn_performance}
+    \caption{KNN Performance by: Overall Metrics, Per-Class Performance, Confusion Matrix, and Accuracy by Class.}
+\end{figure}
+
+\subsubsection{Observations}
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Overall Performance}
+    The model achieved strong performance on the test dataset with the following macro-averaged metrics: \\
+    Accuracy: 85.73$\%$ \\
+    Precision: 85.99$\%$ \\
+    Recall: 85.73$\%$ \\
+    F1-Score: 85.63$\%$ \\
+    These metrics are shown in the "Overall Performance Metrics" chart.
+    \item \textbf{Detailed Analysis Through Visualizations}
+    \textbf{Accuracy by Class} \\
+    The “Accuracy by Class” horizontal bar chart shows significant variation across categories.\\
+    High-performing classes:
+    \begin{itemize}
+        \item Trouser: 96.5$\%$ 
+        \item Ankle Boot: 96.2$\%$ 
+        \item Bag: 94.9$\%$ 
+        \item Sneaker: 94.9$\%$ 
+    \end{itemize}
+
+    These items have distinctive shapes, making them easier to classify.\\
+    \textbf{Low-performing class:}
+    \begin{itemize}
+        \item Shirt: 57.7$\%$, the lowest accuracy.
+    \end{itemize}
+    \textbf{Confusion Matrix Insights}
+    The confusion matrix explains why Shirt performs poorly: \\
+    \begin{itemize}
+        \item Misclassified as T-shirt/top: 205 times
+        \item Misclassified as Pullover: 115 times
+        \item Misclassified as Coat: 74 times
+    \end{itemize}
+    Shirt is frequently confused with other upper-body clothing categories, which share similar visual features.
+    Classes like Trouser, Sneaker, and Bag show high diagonal values (e.g., 965, 949, 952), meaning they are rarely misclassified.
+    \textbf{Per-Class Performance Metrics} \\
+    The “Per-Class Performance” chart further confirms this: \\
+    Shirt has very low Recall $(\approx60\%)$.\\
+    This aligns with its 57.7$\%$ accuracy.
+\end{enumerate}
+\subsubsection{Conclusion}
+The KNN model with k = 10 achieves an overall accuracy of 85.73$\%$  on Fashion MNIST. 
+It performs very well for categories with distinctive shapes such as trousers, bags, and shoes.
+\\
+However, the model struggles with categories having overlapping visual features, particularly Shirt, 
+which is often confused with T-shirt/top, Pullover, and Coat. 
+This highlights a core limitation of KNN when class boundaries are not well separated in distance space.

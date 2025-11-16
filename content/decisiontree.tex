@@ -1,0 +1,81 @@
+\section{Decision Tree}
+\subsection{Definition}
+A decision tree is a non-parametric supervised learning algorithm, which is utilized for both classification and regression tasks. \\
+It has a hierarchical, tree structure, which consists of a root node, branches, internal nodes and leaf nodes.\\
+For multiclass classification, the model predicts one class among multiple possible categories by 
+recursively splitting the input space based on the most informative features.\\
+Each internal node represents a test on a feature, each branch represents an outcome of that test, and each leaf node represents a final decision or prediction.
+
+\subsection{Working Principle}
+Decision tree learning employs a divide and conquer strategy by conducting a greedy search to identify 
+the optimal split points within a tree. This process of splitting is then repeated in a top-down, 
+recursive manner until all, or the majority of records have been classified under specific class labels.
+\\
+
+Start
+\begin{enumerate}
+    \item Start with the entire dataset at the root node.
+    \item Evaluate all features and choose the one that best separates the data.
+    \item Split the dataset based on this feature.
+    \item Repeat the process recursively for each child node until:
+    \begin{itemize}
+        \item All samples belong to the same class, or
+        \item Maximum tree depth is reached, or
+        \item No further improvement can be made.
+    \end{itemize}
+
+\end{enumerate}
+\subsection{Overall Performance}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/DTree_over.png}
+    \label{fig:dtree_performance}
+    \caption{Decision Tree Performance}
+\end{figure}
+These results show that the Decision Tree provides moderate performance for this multiclass task,
+ with balanced precision and recall.
+\subsection{Class Performance}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/DTree_class.png}
+    \label{fig:dtree_class}
+    \caption{Decision Tree Per-class Performance}
+\end{figure}
+\subsection{Accuracy per class} 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/DTree_accuracy.png}
+    \label{fig:dtree_accuracy}
+    \caption{Decision Tree Per-class Accuracy}
+\end{figure}
+
+\textbf{Observations:}
+\\
+Trouser, Bag, Ankle boot are classified extremely well $(>90\%)$
+\\
+Shirt has the lowest accuracy $(\approx54\%)$, a common challenge due to visual overlap with T-shirt or Coat.
+\subsection{Advantages and Limitations}
+\textbf{Advantages:}
+\begin{enumerate}
+    \item \textbf{Interpretable structure} \\
+    The model provides clear decision rules, allowing easy interpretation of how the 10 clothing categories are classified.
+    \item \textbf{Fast training time} \\
+    Training is computationally inexpensive, even with 60,000 images, making it suitable for quick baseline modeling.
+    \item \textbf{Good performance on some distinct classes} \\
+    Classes with simple visual patterns (e.g., Trouser, Bag, Ankle boot) achieved high accuracy $(>90\%)$, showing that the tree can separate well-defined categories.
+    \item \textbf{Non-linear decision boundaries} \\
+    The tree can model non-linear relationships between pixel features without requiring feature scaling.
+\end{enumerate}
+\textbf{Limitations:}
+\begin{enumerate}
+    \item \textbf{Relatively low overall accuracy} $(~79.8\%)$ \\
+    For high-dimensional image data, a single decision tree is not strong enough to capture complex patterns compared to modern models (CNNs, Random Forest, XGBoost).
+    \item \textbf{High sensitivity to noise and similar classes} \\
+    Classes with visually overlapping shapes (Shirt, Pullover, Coat) show poor accuracy (as low as $\approx54\%$), indicating instability in boundary decisions.
+    \item \textbf{Overfitting tendency} \\
+    Without proper pruning, the model memorizes training data and generalizes poorly on test samples.
+    \item \textbf{Poor handling of continuous, high-dimensional pixel inputs} \\
+    FashionMNIST images (784 features) lead to fragmented splits and reduced discriminative power.
+    \item \textbf{Unbalanced class performance} \\
+    Large performance variance between classes $(54\% \rightarrow 96\%)$ suggests the model is not stable across all categories.
+\end{enumerate}
